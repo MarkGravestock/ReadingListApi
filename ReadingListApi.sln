@@ -15,7 +15,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ReadingListApi", "src\Readi
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ReadingListApi.AcceptanceTests", "src\ReadingListApi.AcceptanceTests\ReadingListApi.AcceptanceTests.xproj", "{4D099652-083A-4B14-97B2-2871DD9D5638}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ReadlingList.Domain", "src\ReadlingList.Domain\ReadlingList.Domain.xproj", "{159CA88B-0D7C-413D-97D0-BF6BD06FA73A}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ReadingList.Domain", "src\ReadlingList.Domain\ReadingList.Domain.xproj", "{159CA88B-0D7C-413D-97D0-BF6BD06FA73A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BE473EF8-FD10-4015-8C69-78874B0D1D0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,7 +43,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F051EC99-D934-4C7F-BC87-2D7418DD8B96} = {625F5DF7-3C54-4775-AD3C-A496EB4EE099}
-		{4D099652-083A-4B14-97B2-2871DD9D5638} = {625F5DF7-3C54-4775-AD3C-A496EB4EE099}
+		{4D099652-083A-4B14-97B2-2871DD9D5638} = {BE473EF8-FD10-4015-8C69-78874B0D1D0C}
 		{159CA88B-0D7C-413D-97D0-BF6BD06FA73A} = {625F5DF7-3C54-4775-AD3C-A496EB4EE099}
 	EndGlobalSection
 EndGlobal
