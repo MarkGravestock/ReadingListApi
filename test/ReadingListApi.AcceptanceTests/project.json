@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "ReadingListApi.AcceptanceTests Class Library",
   "authors": [ "Mark Gravestock" ],
@@ -8,6 +8,7 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
+        "xunit.runner.visualstudio": "2.1.0"
       }
     },
     "dnxcore50": {

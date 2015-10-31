@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Hosting.Internal;
+using Ploeh.Samples.RunningJournalApi.AcceptanceTests;
 using System;
 using System.Net.Http;
 using Xunit;
@@ -39,6 +40,18 @@ namespace ReadingListApi.AcceptanceTests
                 var response = client.GetAsync(ReadingListPath).Result;
 
                 Assert.Equal(MediaTypeJson, response.Content.Headers.ContentType.MediaType);
+            }
+        }
+
+        [Fact]
+        public void ReturnsASingleItemToRead()
+        {
+            using (var app = host.Start())
+            {
+                var response = client.GetAsync(ReadingListPath).Result;
+                var json = response.Content.ReadAsJsonAsync().Result;
+
+                Assert.Equal(json.Count, 1);
             }
         }
     }

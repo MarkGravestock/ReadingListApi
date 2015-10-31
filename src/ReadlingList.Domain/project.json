@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "ReadlingList.Domain Class Library",
   "authors": [ "Mark Gravestock" ],
@@ -7,7 +7,10 @@
   "licenseUrl": "",
 
   "frameworks": {
-    "dnx451": { },
+    "dnx451": {
+      "dependencies": {
+      }
+    },
     "dnxcore50": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23409",
