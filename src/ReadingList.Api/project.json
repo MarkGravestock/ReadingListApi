@@ -7,22 +7,27 @@
     "Microsoft.AspNet.Mvc": "6.0.0-beta8",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
     "Microsoft.Framework.Logging": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Console": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Debug": "1.0.0-beta8",
-    "ReadlingList.Domain": "1.0.0-*"
+    "ReadlingList.Domain": "1.0.0-*",
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8",
+    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-beta8"
   },
 
   "commands": {
+    "kestrel": "Microsoft.AspNet.Server.Kestrel",
     "web": "Microsoft.AspNet.Server.Kestrel"
   },
 
   "frameworks": {
     "dnx451": {
       "dependencies": {
+        "RavenDB.Embedded": "3.0.3800",
+        "ReadingList.Persistance": "1.0.0-*"
       }
-    },
-    "dnxcore50": { }
+    }
   },
 
   "exclude": [

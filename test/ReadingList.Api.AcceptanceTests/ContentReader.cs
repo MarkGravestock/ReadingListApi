@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
-namespace Ploeh.Samples.RunningJournalApi.AcceptanceTests
+namespace ReadingList.Api.AcceptanceTests
 {
     public static class ContentReader
     {
-        public static Task<dynamic> ReadAsJsonAsync(this HttpContent content)
+        public static Task<T> ReadAsync<T>(this HttpContent content)
         {
             if (content == null)
                 throw new ArgumentNullException("content");
 
             return content.ReadAsStringAsync().ContinueWith(t =>
-                JsonConvert.DeserializeObject(t.Result));
+                JsonConvert.DeserializeObject<T>(t.Result));
         }
 
         public static Task<XDocument> ReadAsXmlAsync(this HttpContent content)

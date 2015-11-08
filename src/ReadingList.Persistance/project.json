@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "ReadingList.Persistance Class Library",
+  "authors": [ "Mark Gravestock" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "RavenDB.Embedded": "3.0.3800"
+      }
+
+    }
+  },
+  "dependencies": {
+    "ReadlingList.Domain": "1.0.0-*",
+  }
+}

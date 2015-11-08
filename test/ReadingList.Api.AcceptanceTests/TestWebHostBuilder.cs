@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Hosting.Internal;
 using Microsoft.Dnx.Runtime.Infrastructure;
 using Microsoft.Framework.Configuration;
+using Raven.Client;
 
-namespace ReadingListApi.AcceptanceTests
+namespace ReadingList.Api.AcceptanceTests
 {
     public class TestWebHostBuilder
     {
         private string uri;
+        private IDocumentStore documentStore;
 
         public TestWebHostBuilder UsingUri(string uri)
         {
@@ -17,14 +18,21 @@ namespace ReadingListApi.AcceptanceTests
             return this;
         }
 
+        public TestWebHostBuilder UsingDocumentStore(IDocumentStore documentStore)
+        {
+            this.documentStore = documentStore;
+            return this;
+        }
+
         public IHostingEngine Build()
         {
-            var baseAddress = new Uri(uri);
             var configBuider = new ConfigurationBuilder();
 
-            configBuider.AddInMemoryCollection(new Dictionary<string, string> {{"server.urls", uri}});
+            configBuider.AddInMemoryCollection(new Dictionary<string, string> {{"server.urls", uri}, { "Raven/Voron/AllowOn32Bits ", "true"} });
+           
             var builder = new WebHostBuilder(CallContextServiceLocator.Locator.ServiceProvider, configBuider.Build());
-            builder.UseStartup<Startup>();
+           
+            builder.UseStartup(app => { new Startup(null).ConfigureApplication(app); }, services => { new ServiceConfigurer(documentStore).ConfigureServices(services); });
             builder.UseServer("Microsoft.AspNet.Server.Kestrel");
 
             return builder.Build();
