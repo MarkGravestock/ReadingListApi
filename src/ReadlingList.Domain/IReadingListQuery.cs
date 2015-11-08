@@ -6,6 +6,5 @@ namespace ReadlingList.Domain
     {
         IEnumerable<ItemToRead> GetAllItemsToRead();
         ItemToRead GetItemToRead(string id);
-        IEnumerable<ItemToRead> GetItemsToReadByTag(string tag);
     }
 }

@@ -60,29 +60,56 @@ namespace ReadingList.Api.AcceptanceTests
         }
 
         [Fact]
+        public void ReturnsTheExpectedItemToRead()
+        {
+            var itemToRead = CreateItemToRead();
+
+            Save(itemToRead);
+
+            using (var app = host.Start())
+            {
+                var response = client.GetAsync(ReadingListPath + "/" + itemToRead.Id).Result;
+                var itemsToRead = response.Content.ReadAsync<ItemToRead>().Result;
+
+                Assert.NotNull(itemsToRead);
+            }
+        }
+
+        [Fact]
         public void ReturnsAtLeastOneItemToRead()
+        {
+            var itemToRead = CreateItemToRead();
+
+            Save(itemToRead);
+
+            using (var app = host.Start())
+            {
+                var response = client.GetAsync(ReadingListPath).Result;
+                var itemToReads = response.Content.ReadAsync<ItemToRead[]>().Result;
+
+                Assert.True(itemToReads.Length > 0);
+            }
+        }
+
+        private void Save(ItemToRead itemToRead)
+        {
+            using (var documentSession = documentStore.OpenSession())
+            {
+                documentSession.Store(itemToRead);
+                documentSession.SaveChanges();
+            }
+        }
+
+        private static ItemToRead CreateItemToRead()
         {
             var itemToRead = new ItemToRead
             {
                 Id = "47",
                 Description = "Solid Javascript",
                 Uri = new Uri("https://www.youtube.com/watch?v=TAVn7s-kO9o"),
-                Tags = new List<string>() { "Development", "SOLID" }
+                Tags = new List<string>() {"Development", "SOLID"}
             };
-
-            using (var documentSession = documentStore.OpenSession())
-            {
-                documentSession.Store(itemToRead);
-                documentSession.SaveChanges();
-            }
-
-            using (var app = host.Start())
-            {
-                var response = client.GetAsync(ReadingListPath + "/" + itemToRead.Id).Result;
-                var json = response.Content.ReadAsync<ItemToRead>().Result;
-
-                Assert.Equal(itemToRead.Description, json.Description);
-            }
+            return itemToRead;
         }
 
         public void Dispose()
