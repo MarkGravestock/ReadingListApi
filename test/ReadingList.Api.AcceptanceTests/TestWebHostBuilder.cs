@@ -28,11 +28,11 @@ namespace ReadingList.Api.AcceptanceTests
         {
             var configBuider = new ConfigurationBuilder();
 
-            configBuider.AddInMemoryCollection(new Dictionary<string, string> {{"server.urls", uri}, { "Raven/Voron/AllowOn32Bits ", "true"} });
+            configBuider.AddInMemoryCollection(new Dictionary<string, string> {{"server.urls", uri}});
            
             var builder = new WebHostBuilder(CallContextServiceLocator.Locator.ServiceProvider, configBuider.Build());
            
-            builder.UseStartup(app => { new Startup(null).ConfigureApplication(app); }, services => { new ServiceConfigurer(documentStore).ConfigureServices(services); });
+            builder.UseStartup(app => { new Startup().ConfigureApplication(app); }, services => { new ServiceConfigurer(documentStore).ConfigureServices(services); });
             builder.UseServer("Microsoft.AspNet.Server.Kestrel");
 
             return builder.Build();

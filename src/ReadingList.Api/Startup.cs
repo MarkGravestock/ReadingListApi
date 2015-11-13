@@ -8,18 +8,17 @@ namespace ReadingList.Api
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
-        {
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-            var documentStore = new DocumentStore {Url = "http://localhost:8080", DefaultDatabase = "ReadingList"};
+            var documentStore = UseInstalledRavenDocumentStore();
             documentStore.Initialize();
 
             new ServiceConfigurer(documentStore).ConfigureServices(services);
+        }
+
+        private static DocumentStore UseInstalledRavenDocumentStore()
+        {
+            return new DocumentStore {Url = "http://localhost:8080", DefaultDatabase = "ReadingList"};
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

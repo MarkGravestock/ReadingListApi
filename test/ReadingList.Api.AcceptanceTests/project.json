@@ -9,7 +9,8 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "xunit.runner.visualstudio": "2.1.0"
+        "xunit.runner.visualstudio": "2.1.0",
+        "ShouldFluent": "1.1.19"
       }
     }
   },

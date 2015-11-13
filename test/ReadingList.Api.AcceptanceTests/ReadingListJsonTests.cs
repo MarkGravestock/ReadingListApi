@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Ploeh.AutoFixture;
 using Raven.Client;
-using Raven.Client.Document;
+using Raven.Client.Embedded;
 using ReadlingList.Domain;
 using Xunit;
+using Ploeh.AutoFixture;
+using Should.Fluent;
 
 namespace ReadingList.Api.AcceptanceTests
 {
@@ -21,12 +22,11 @@ namespace ReadingList.Api.AcceptanceTests
 
         private readonly IDocumentStore documentStore;
 
-        private readonly Fixture fixture; 
+        private readonly Fixture fixture;
 
         public ReadingListJsonTests()
         {
-            //documentStore = new EmbeddableDocumentStore {DefaultDatabase = "ReadingList"};
-            documentStore = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "ReadingList" };
+            documentStore = new EmbeddableDocumentStore {DefaultDatabase = "ReadingList", RunInMemory = true};
 
             host = new TestWebHostBuilder().UsingUri(HostUri).UsingDocumentStore(documentStore).Build();
 
@@ -40,54 +40,58 @@ namespace ReadingList.Api.AcceptanceTests
         [Fact]
         public void ReturnsExpectedHttpResult()
         {
-            using (var app = host.Start())
+            using (host.Start())
             {
                 var response = client.GetAsync(ReadingListPath).Result;
 
-                Assert.True(response.IsSuccessStatusCode, "Actual status code: " + response.StatusCode);
+               response.IsSuccessStatusCode.Should().Be.True();
             }
         }
 
         [Fact]
         public void ReturnsExpectedJsonContent()
         {
-            using (var app = host.Start())
+            using (host.Start())
             {
                 var response = client.GetAsync(ReadingListPath).Result;
 
-                Assert.Equal(MediaTypeJson, response.Content.Headers.ContentType.MediaType);
+                response.Content.Headers.ContentType.MediaType.Should().Equal(MediaTypeJson);
             }
         }
 
         [Fact]
         public void ReturnsTheExpectedItemToRead()
         {
-            var itemToRead = CreateItemToRead();
+            var itemToRead = CreateItemToRead(fixture.Create<String>());
 
             Save(itemToRead);
 
-            using (var app = host.Start())
+            using (host.Start())
             {
                 var response = client.GetAsync(ReadingListPath + "/" + itemToRead.Id).Result;
                 var itemsToRead = response.Content.ReadAsync<ItemToRead>().Result;
 
-                Assert.NotNull(itemsToRead);
+                itemsToRead.Should().Not.Be.Null();
             }
         }
 
         [Fact]
         public void ReturnsAtLeastOneItemToRead()
         {
-            var itemToRead = CreateItemToRead();
+            var itemToRead = CreateItemToRead(fixture.Create<String>());
 
             Save(itemToRead);
+
+            var secondItemToRead = CreateItemToRead(fixture.Create<String>());
+
+            Save(secondItemToRead);
 
             using (var app = host.Start())
             {
                 var response = client.GetAsync(ReadingListPath).Result;
                 var itemToReads = response.Content.ReadAsync<ItemToRead[]>().Result;
 
-                Assert.True(itemToReads.Length > 0);
+                itemToReads.Length.Should().Equal(2);
             }
         }
 
@@ -100,15 +104,16 @@ namespace ReadingList.Api.AcceptanceTests
             }
         }
 
-        private static ItemToRead CreateItemToRead()
+        private static ItemToRead CreateItemToRead(String id)
         {
             var itemToRead = new ItemToRead
             {
-                Id = "47",
+                Id = id,
                 Description = "Solid Javascript",
                 Uri = new Uri("https://www.youtube.com/watch?v=TAVn7s-kO9o"),
                 Tags = new List<string>() {"Development", "SOLID"}
             };
+
             return itemToRead;
         }
 
