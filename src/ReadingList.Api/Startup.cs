@@ -32,6 +32,8 @@ namespace ReadingList.Api
 
         public void ConfigureApplication(IApplicationBuilder app)
         {
+            app.UseStaticFiles();
+
             app.UseMvc();
 
             app.UseRuntimeInfoPage();

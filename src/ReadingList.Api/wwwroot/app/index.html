@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Reading List</title>
+    <script src="/lib/angular/angular.js"></script>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<!-- http://www.bootply.com/OyeREBhnav -->
+<body ng-app="readingListApp">
+<div class="container">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Reading List</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <h2>Items To Read</h2>
+    <div ng-controller="readingListController">
+        <div class="row">
+            <div ng-repeat-start="item in items" class="col-xs-3">
+                <div class="well">
+                    <div class="thumbnail"><img src="{{item.ImageUri}}"/></div>
+                    <h3 class="cap"><a href="{{item.Uri}}">{{item.Description}}</a>
+                    </h3>
+                    <p>
+                        {{item.Id}},{{item.Description}}<br>
+                        <span ng-repeat-start="tag in item.Tags" class="label label-primary">{{tag}}</span>
+                        <span ng-repeat-end=""></span>
+                    </p>
+                </div>
+            </div>
+            <div ng-repeat-end=""></div>
+        </div>
+    </div>
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/reading-list-app.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
