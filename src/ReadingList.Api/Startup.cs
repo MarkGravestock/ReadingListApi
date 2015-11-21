@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Raven.Client.Document;
 
 namespace ReadingList.Api
@@ -25,7 +25,6 @@ namespace ReadingList.Api
         {
             loggerFactory.MinimumLevel = LogLevel.Debug;
             loggerFactory.AddConsole();
-            loggerFactory.AddDebug();
 
             ConfigureApplication(app);
         }

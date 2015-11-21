@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Hosting.Internal;
-using Microsoft.Dnx.Runtime.Infrastructure;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Raven.Client;
 
 namespace ReadingList.Api.AcceptanceTests
@@ -30,7 +29,7 @@ namespace ReadingList.Api.AcceptanceTests
 
             configBuider.AddInMemoryCollection(new Dictionary<string, string> {{"server.urls", uri}});
            
-            var builder = new WebHostBuilder(CallContextServiceLocator.Locator.ServiceProvider, configBuider.Build());
+            var builder = new WebHostBuilder(configBuider.Build());
            
             builder.UseStartup(app => { new Startup().ConfigureApplication(app); }, services => { new ServiceConfigurer(documentStore).ConfigureServices(services); });
             builder.UseServer("Microsoft.AspNet.Server.Kestrel");

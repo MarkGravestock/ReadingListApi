@@ -21,13 +21,13 @@
 
   "dependencies": {
     "AutoFixture": "3.36.9",
-    "Microsoft.AspNet.Hosting": "1.0.0-beta8",
-    "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
+    "Microsoft.AspNet.Hosting": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "RavenDB.Embedded": "3.0.3800",
     "ReadingList.Api": "1.0.0-*",
     "System.Net.Http": "4.0.0",
     "xunit": "2.1.0",
-    "xunit.runner.dnx": "2.1.0-beta6-build191"
+    "xunit.runner.dnx": "2.1.0-rc1-build204"
   }
 }

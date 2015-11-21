@@ -22,8 +22,13 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+wwwroot/lib
+wwwroot/app/js
+
 # Visual Studio 2015 cache/options directory
 .vs/
+.vscode/
+node-modules/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -210,3 +215,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+
